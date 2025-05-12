@@ -39,7 +39,7 @@ export const experiencesData: Experience[] = [
       'As a target-driven Logistic & Quality Manager for a coal trading company, this professional meticulously safeguards coal quality from supplier intake through to final buyer delivery, while simultaneously orchestrating the intricate supply chain to ensure unwavering adherence to delivery schedules by suppliers, all necessitating seamless coordination with internal teams to proactively address challenges and achieve operational excellence.',
   },
   {
-    period: '2020 - 2022',
+    period: '2010 - 2013',
     title: 'Logistic and Quality Engineer',
     icon: iconArutmin,
     alt: 'Arutmin',

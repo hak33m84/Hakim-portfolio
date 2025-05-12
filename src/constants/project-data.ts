@@ -1,6 +1,6 @@
 import { StaticImageData } from 'next/image';
 
-import project1 from '../../public/Images/work-1.jpg';
+import project1 from '../../public/Images/work-1.png';
 import project2 from '../../public/Images/work-2.jpg';
 import project3 from '../../public/Images/work-3.jpg';
 
