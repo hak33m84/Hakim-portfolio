@@ -44,12 +44,12 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({ imageSrc, name, description, href }) => {
   return (
-    <div className='flex-1 basis-80'>
+    <div className='flex-1 basis-80 overflow-y-auto bg-scroll'>
       <Link href={href} target='_blank'>
         <Image
           src={imageSrc}
           alt={typeof name === 'string' ? name : 'Project Image'}
-          className='aspect-square cursor-pointer overflow-hidden rounded-2xl bg-fixed object-cover duration-500 hover:scale-90 md:rounded-3xl'
+          className='aspect-square cursor-pointer rounded-2xl object-cover duration-500 hover:scale-90 md:rounded-3xl'
         />
       </Link>
       <h4 className='text-lg-bold text-neutral-25 md:display-xs-bold mt-3 md:mt-4'>
