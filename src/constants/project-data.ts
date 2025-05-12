@@ -1,32 +1,27 @@
 import { StaticImageData } from 'next/image';
 
 import project1 from '../../public/Images/work-1.png';
-import project2 from '../../public/Images/work-2.jpg';
-import project3 from '../../public/Images/work-3.jpg';
+import project2 from '../../public/Images/work-2.png';
 
 type Project = {
   imageSrc: StaticImageData;
   name: string;
   description: string;
+  href: string;
 };
 
 export const projectsData: Project[] = [
   {
     imageSrc: project1,
-    name: 'Dashboard SaaS Task Management',
-    description:
-      'Lorem ipsum dolor sit amet consectetur. Aenean sed commodo aenean nunc lobortis.',
+    name: 'Todo List App',
+    description: 'Implementation of todo list with CRUD features.',
+    href: 'https://to-do-list-ten-umber-64.vercel.app/',
   },
   {
     imageSrc: project2,
-    name: 'Dashboard SaaS Task Management',
+    name: 'Company Profile Website',
     description:
-      'Lorem ipsum dolor sit amet consectetur. Aenean sed commodo aenean nunc lobortis.',
-  },
-  {
-    imageSrc: project3,
-    name: 'Dashboard SaaS Task Management',
-    description:
-      'Lorem ipsum dolor sit amet consectetur. Aenean sed commodo aenean nunc lobortis.',
+      'Profesional company profile website with responsive design. Using Next.js, Shadcn UI, Framer Motion and Tailwind CSS.',
+    href: 'https://company-profile-rho-silk.vercel.app/',
   },
 ];

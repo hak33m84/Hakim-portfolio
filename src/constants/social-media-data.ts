@@ -1,7 +1,7 @@
 import { StaticImageData } from 'next/image';
 
 import iconFacebook from '../../public/Icons/fb.png';
-import iconInstagram from '../../public/Icons/instagram.svg';
+import iconGithub from '../../public/Icons/github.png';
 import iconLinkedin from '../../public/Icons/linkedin.svg';
 
 type Icon = {
@@ -22,8 +22,8 @@ export const socialMediaData: Icon[] = [
     alt: 'linkedin',
   },
   {
-    href: 'https://www.instagram.com/hak33m84/',
-    icon: iconInstagram,
+    href: 'https://github.com/hak33m84',
+    icon: iconGithub,
     alt: 'instagram',
   },
 ];

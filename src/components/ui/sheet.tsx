@@ -80,9 +80,7 @@ function SheetContent({
             height={1}
             className='w-6'
           />
-          <p className='text-primary-200 text-md-bold shrink-0'>
-            Edwin Anderson.
-          </p>
+          <p className='text-primary-200 text-md-bold shrink-0'>Budi Hakim</p>
         </div>
 
         {children}
