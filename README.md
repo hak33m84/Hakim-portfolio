@@ -1,3 +1,13 @@
+# Personal Portfolio
+
+![image](https://github.com/user-attachments/assets/19b95653-dace-4142-97f5-fb7f5cab1617)
+
+
+What makes me proud for this personal website is how I struggled converting design on Figma into live website. every details consumed me lot of time. When I first created this website it tooks me 2 weeks, but now I can make it faster. I learned many things from this project and sharpened my skills as a front end developer.
+
+**Technology used**: React, Next.js, TypeScript, Shadcn, Framer motion, Tailwind CSS.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
