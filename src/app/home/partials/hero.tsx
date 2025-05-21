@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -8,6 +9,20 @@ import DecorationBox from '@/components/layouts/decorationBox';
 import { Button } from '@/components/ui/button';
 
 import Navbar from './navbar';
+
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
+
+const itemVariant = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -35,17 +50,31 @@ const Hero = () => {
       <div className='absolute top-1/2 -left-1/2 z-10 hidden h-0.25 w-218.5 translate-x-1/2 rotate-90 bg-neutral-800 lg:block' />
       <div className='absolute bottom-0 left-1/2 z-10 hidden h-0.25 w-312 -translate-x-1/2 bg-neutral-800 lg:block' />
       <Navbar />
-      <DecorationBox className='absolute bottom-[20%] left-0 z-10 h-[4.3rem] w-[6.45rem] md:bottom-0 md:-left-32 md:h-[5.75rem] md:w-[8.625rem]' />
+
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.6, duration: 0.7, ease: 'easeOut' }}
+        className='absolute bottom-[20%] left-0 z-10 md:bottom-0 md:-left-32'
+      >
+        <DecorationBox className='h-[4.3rem] w-[6.45rem] md:h-[5.75rem] md:w-[8.625rem]' />
+      </motion.div>
 
       {/* Hero Content */}
-      <div
+      <motion.div
         className='z-20 flex-[5.9] basis-110 pb-10 md:p-0'
         style={{
           width: 'clamp(22.5rem, 64.66vw, 50.4375rem)',
           marginTop: 'clamp(7.5rem, 17.71vw, 13.81rem)',
         }}
+        variants={container}
+        initial='hidden'
+        animate='show'
       >
-        <div className='flex-start flex gap-2 md:gap-4'>
+        <motion.div
+          className='flex-start flex gap-2 md:gap-4'
+          variants={itemVariant}
+        >
           <Image
             src={isMobile ? '/Icons/Line-hero.svg' : '/Icons/Line-logo.svg'}
             alt='line-hero'
@@ -56,15 +85,21 @@ const Hero = () => {
           <p className='text-md-medium md:text-xl-medium text-neutral-25'>
             Hi, I am Hakim Frontend Developer
           </p>
-        </div>
-        <h1 className='display-lg-extrabold md:display-3xl-extrabold md:text-[80px]'>
+        </motion.div>
+        <motion.h1
+          className='display-lg-extrabold md:display-3xl-extrabold md:text-[80px]'
+          variants={itemVariant}
+        >
           BUILDING FAST & <span className='text-primary-200'>INTERACTIVE</span>{' '}
           WEB EXPERIENCES
-        </h1>
-        <p className='text-lg-medium md:text-xl-medium text-neutral-400 md:w-149.25'>
+        </motion.h1>
+        <motion.p
+          className='text-lg-medium md:text-xl-medium text-neutral-400 md:w-149.25'
+          variants={itemVariant}
+        >
           Bridging creativity and functionality to deliver stunning,
           user-friendly web applications
-        </p>
+        </motion.p>
         <Button asChild className='mt-10 w-full md:mt-15 md:w-fit md:px-29'>
           <Link
             href='#contact'
@@ -73,10 +108,15 @@ const Hero = () => {
             HIRE ME
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
       {/*Hero Profile*/}
-      <div className='top-0 right-0 mt-0 mb-10 flex-[4.1] basis-110 md:absolute md:mt-0'>
+      <motion.div
+        className='top-0 right-0 mt-0 mb-10 flex-[4.1] basis-110 md:absolute md:mt-0'
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.2, duration: 0.6, ease: 'easeOut' }}
+      >
         <div
           className='relative mx-auto overflow-hidden'
           style={{
@@ -102,48 +142,25 @@ const Hero = () => {
               5.0
             </h3>
             <div className='flex gap-1'>
-              <Image
-                src='/Icons/icon-star-gold.svg'
-                alt='star'
-                width={8}
-                height={8}
-                className='size-4.25 md:size-5.75'
-              />
-              <Image
-                src='/Icons/icon-star-gold.svg'
-                alt='star'
-                width={8}
-                height={8}
-                className='size-4.25 md:size-5.75'
-              />
-              <Image
-                src='/Icons/icon-star-gold.svg'
-                alt='star'
-                width={8}
-                height={8}
-                className='size-4.25 md:size-5.75'
-              />
-              <Image
-                src='/Icons/icon-star-gold.svg'
-                alt='star'
-                width={8}
-                height={8}
-                className='size-4.25 md:size-5.75'
-              />
-              <Image
-                src='/Icons/icon-star-gold.svg'
-                alt='star'
-                width={8}
-                height={8}
-                className='size-4.25 md:size-5.75'
-              />
+              {Array(5)
+                .fill(0)
+                .map((_, i) => (
+                  <Image
+                    key={i}
+                    src='/Icons/icon-star-gold.svg'
+                    alt='star'
+                    width={8}
+                    height={8}
+                    className='size-4.25 md:size-5.75'
+                  />
+                ))}
             </div>
             <p className='text-md-semibold md:text-xl-semibold text-neutral-25 h-7.5 md:h-8.5'>
               Excellent Result Oriented
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
