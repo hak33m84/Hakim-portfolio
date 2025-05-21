@@ -12,15 +12,26 @@ type PhasesExperienceProps = {
 };
 
 const PhasesExperience: React.FC<PhasesExperienceProps> = ({ children }) => {
+  const totalItems = React.Children.count(children); // Menghitung total item
   return (
     <div className='grid grid-cols-[2.5rem_auto] gap-x-4 md:grid-cols-[auto_3rem_auto] md:gap-x-16'>
-      {children}
+      {React.Children.map(children, (child, index) => {
+        if (React.isValidElement<PhasesExperienceItemProps>(child)) {
+          return React.cloneElement(child, {
+            index: index + 1,
+            totalItems,
+          });
+        }
+        return child;
+      })}
     </div>
   );
 };
+export default PhasesExperience;
 
 type PhasesExperienceItemProps = {
   index?: number;
+  totalItems?: number;
   period: string;
   icon: StaticImageData;
   alt: string;
@@ -28,10 +39,9 @@ type PhasesExperienceItemProps = {
   description: string;
 };
 
-export default PhasesExperience;
-
 export const PhasesExperienceItem: React.FC<PhasesExperienceItemProps> = ({
   index = 0,
+  totalItems = 1,
   period,
   icon,
   alt,
@@ -51,18 +61,30 @@ export const PhasesExperienceItem: React.FC<PhasesExperienceItemProps> = ({
     return () => window.removeEventListener('resize', checkSize);
   }, []);
 
+  const lastItem = index === totalItems;
+
   return (
     <>
       {index % 2 !== 0 && isLargeIsh && (
         <>
           <EmptyExperience />
-          <LineAndCircle index={index} isLargeIsh={isLargeIsh} />
+          <LineAndCircle
+            index={index}
+            isLargeIsh={isLargeIsh}
+            lastItem={lastItem}
+          />
         </>
       )}
-      {!isLargeIsh && <LineAndCircle index={index} isLargeIsh={isLargeIsh} />}
+      {!isLargeIsh && (
+        <LineAndCircle
+          index={index}
+          isLargeIsh={isLargeIsh}
+          lastItem={lastItem}
+        />
+      )}
 
       {/* right column */}
-      <div className='my-4 flex flex-col rounded-2xl border border-neutral-950 p-4 md:rounded-3xl md:p-6'>
+      <div className='hover:border-primary-200 my-4 flex flex-col rounded-2xl border border-neutral-800 p-4 md:rounded-3xl md:p-6'>
         <div className='flex flex-col gap-2 md:flex-row md:justify-between'>
           <div className='flex flex-col'>
             <p className='text-sm-regular md:text-lg-medium text-neutral-400'>
@@ -74,14 +96,18 @@ export const PhasesExperienceItem: React.FC<PhasesExperienceItemProps> = ({
           </div>
           <Image src={icon} alt={alt} className='h-8 w-19 md:h-12 md:w-28.5' />
         </div>
-        <p className='text-sm-regular md:text-md-regular mt-4 text-start leading-7 text-neutral-400'>
+        <p className='text-sm-regular md:text-md-regular mt-4 line-clamp-6 text-start leading-7 text-neutral-400'>
           {description}
         </p>
       </div>
 
       {index % 2 === 0 && isLargeIsh && (
         <>
-          <LineAndCircle index={index} isLargeIsh={isLargeIsh} />
+          <LineAndCircle
+            index={index}
+            isLargeIsh={isLargeIsh}
+            lastItem={lastItem}
+          />
           <EmptyExperience />
         </>
       )}

@@ -55,7 +55,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, name, description, href }) => {
       <h4 className='text-lg-bold text-neutral-25 md:display-xs-bold mt-3 md:mt-4'>
         {name}
       </h4>
-      <p className='text-sm-regular md:text-md-regular mt-3 text-neutral-400 md:mt-4'>
+      <p className='text-sm-regular md:text-md-regular mt-3 line-clamp-5 text-neutral-400 md:mt-4'>
         {description}
       </p>
     </div>
