@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
 
@@ -14,6 +17,7 @@ import { chunkArray } from '@/lib/utils';
 
 const Testimonials = () => {
   const chunkedData = chunkArray(testimonialsData, 2);
+
   return (
     <Section
       title='TESTIMONIALS'
@@ -25,8 +29,12 @@ const Testimonials = () => {
           {chunkedData.map((group, groupIndex) => (
             <CarouselItem key={groupIndex}>
               <div key={groupIndex} className='flex flex-wrap gap-4'>
-                {group.map((testi) => (
-                  <TestimonialCard key={testi.profileName} {...testi} />
+                {group.map((testi, i) => (
+                  <TestimonialCard
+                    key={testi.profileName}
+                    index={i}
+                    {...testi}
+                  />
                 ))}
               </div>
             </CarouselItem>
@@ -46,6 +54,7 @@ type TestimonialCardProps = {
   iconSrc: StaticImageData;
   rating: StaticImageData;
   description: string;
+  index: number;
 };
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
@@ -54,9 +63,16 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   iconSrc,
   rating,
   description,
+  index,
 }) => {
   return (
-    <div className='bg-base-black w-90.25 rounded-2xl border border-neutral-800 p-4 md:w-145 md:rounded-3xl md:p-6'>
+    <motion.div
+      className='bg-base-black w-90.25 rounded-2xl border border-neutral-800 p-4 md:w-145 md:rounded-3xl md:p-6'
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.2, duration: 0.6, ease: 'easeOut' }}
+      viewport={{ once: false, amount: 0.3 }}
+    >
       <div className='flex-between'>
         <div className='flex flex-col gap-1'>
           <p className='text-lg-bold text-neutral-25 md:text-xl-bold h-8'>
@@ -69,15 +85,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         <Image src={iconSrc} alt={profileName} className='items-center' />
       </div>
       <div className='mt-3 flex gap-1'>
-        <Image src={rating} alt='star' />
-        <Image src={rating} alt='star' />
-        <Image src={rating} alt='star' />
-        <Image src={rating} alt='star' />
-        <Image src={rating} alt='star' />
+        {[...Array(5)].map((_, i) => (
+          <Image key={i} src={rating} alt='star' />
+        ))}
       </div>
       <p className='text-md-medium text-neutral-25 mt-3 line-clamp-5'>
         {description}
       </p>
-    </div>
+    </motion.div>
   );
 };

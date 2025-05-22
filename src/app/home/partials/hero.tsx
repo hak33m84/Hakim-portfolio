@@ -83,7 +83,7 @@ const Hero = () => {
             className='w-5.25 md:w-28.5'
           />
           <p className='text-md-medium md:text-xl-medium text-neutral-25'>
-            Hi, I am Hakim Frontend Developer
+            Hi, I am Hakim, a Frontend Developer
           </p>
         </motion.div>
         <motion.h1
@@ -137,7 +137,12 @@ const Hero = () => {
           <div className='from-base-black absolute inset-x-0 bottom-0 h-[80%] bg-linear-to-t to-transparent' />
 
           {/*rating*/}
-          <div className='bg-base-black absolute top-81 right-0 z-10 flex w-full flex-col gap-2 rounded-3xl border border-neutral-800 p-5 text-left md:top-153 md:right-39.5 md:w-79'>
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.6, duration: 0.7, ease: 'easeOut' }}
+            className='bg-base-black absolute top-81 right-0 z-10 flex w-full flex-col gap-2 rounded-3xl border border-neutral-800 p-5 text-left md:top-153 md:right-39.5 md:w-79'
+          >
             <h3 className='display-xs-bold md:display-xl-bold text-neutral-25 h-9 md:h-14'>
               5.0
             </h3>
@@ -158,7 +163,7 @@ const Hero = () => {
             <p className='text-md-semibold md:text-xl-semibold text-neutral-25 h-7.5 md:h-8.5'>
               Excellent Result Oriented
             </p>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>

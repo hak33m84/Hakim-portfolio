@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { StaticImageData } from 'next/image';
 import Image from 'next/image';
 import React from 'react';
@@ -61,7 +62,13 @@ const FaqCard: React.FC<FaqCardProps> = ({
   index,
 }) => {
   return (
-    <div className='relative w-90.25 md:w-138'>
+    <motion.div
+      className='relative w-90.25 md:w-138'
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.2, duration: 0.6, ease: 'easeOut' }}
+      viewport={{ once: false, amount: 0.3 }}
+    >
       <div className='flex flex-row gap-3'>
         <Image src={iconSrc} alt={title} className='size-6 md:size-8' />
         <p className='text-lg-bold md:display-xs-bold'>{title}</p>
@@ -72,6 +79,6 @@ const FaqCard: React.FC<FaqCardProps> = ({
       {index !== 5 && (
         <div className='absolute -bottom-4 hidden h-0.25 w-full bg-neutral-800 max-md:block' />
       )}
-    </div>
+    </motion.div>
   );
 };

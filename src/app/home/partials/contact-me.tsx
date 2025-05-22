@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -16,7 +19,13 @@ const ContactMe = () => {
     >
       <DecorationBox className='absolute top-0 left-0 z-10 h-[4.3rem] w-[6.45rem] rotate-180 md:top-0 md:-left-25 md:h-[5.75rem] md:w-[8.625rem]' />
 
-      <div className='relative overflow-hidden'>
+      <motion.div
+        className='relative overflow-hidden'
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ duration: 0.8 }}
+      >
         {/* Man Image */}
         <div className='relative mx-auto gap-4 md:gap-6'>
           <Image
@@ -30,25 +39,49 @@ const ContactMe = () => {
         </div>
 
         {/* Social Media */}
-        <div className='bg-base-transparent absolute right-0 bottom-0 z-10 flex w-full flex-col items-center gap-4 md:gap-6'>
+        <motion.div
+          className='bg-base-transparent absolute right-0 bottom-0 z-10 flex w-full flex-col items-center gap-4 md:gap-6'
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: false }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.15 } },
+            hidden: {},
+          }}
+        >
           <div className='flex flex-wrap gap-4 md:gap-6'>
-            {socialMediaData.map((data) => (
-              <Link
+            {socialMediaData.map((data, index) => (
+              <motion.div
                 key={data.alt}
-                href={data.href}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='flex-center bg-base-black aspect-square size-12 rounded-full border border-neutral-800 p-2.5 duration-500 hover:scale-125 md:size-16'
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Image
-                  src={data.icon}
-                  alt={data.alt}
-                  className='h-3/4 w-auto'
-                />
-              </Link>
+                <Link
+                  href={data.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='flex-center bg-base-black aspect-square size-12 rounded-full border border-neutral-800 p-2.5 duration-500 hover:scale-125 md:size-16'
+                >
+                  <Image
+                    src={data.icon}
+                    alt={data.alt}
+                    className='h-3/4 w-auto'
+                  />
+                </Link>
+              </motion.div>
             ))}
           </div>
-          <div className='flex flex-col gap-2'>
+
+          <motion.div
+            className='flex flex-col gap-2'
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: false }}
+          >
             <p className='text-md-bold md:text-xl-bold text-neutral-25 text-center'>
               Budi Hakim
             </p>
@@ -63,12 +96,18 @@ const ContactMe = () => {
                 Available for Work
               </p>
             </div>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
 
       {/* Contact Form */}
-      <div className='flex w-fit flex-col py-10'>
+      <motion.div
+        className='flex w-fit flex-col py-10'
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        viewport={{ once: false }}
+      >
         <p className='text-md-medium md:text-lg-medium text-primary-200 mb:2'>
           CONTACT
         </p>
@@ -76,7 +115,7 @@ const ContactMe = () => {
           LET’S GET IN TOUCH
         </h2>
         <ContactForm />
-      </div>
+      </motion.div>
     </section>
   );
 };

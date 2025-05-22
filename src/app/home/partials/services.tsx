@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
 
@@ -6,10 +9,17 @@ import { serviceData } from '@/constants/services-data';
 const formatNumbering = (num: number): string => {
   return num.toString().padStart(2, '0'); // Pads the number with leading zeros
 };
+
 const Services = () => {
   return (
     <div className='custom-container overflow-hidden py-10 md:py-30'>
-      <div className='flex-between flex-wrap'>
+      <motion.div
+        className='flex-between flex-wrap'
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
         <div className='flex w-127.25 flex-col gap-2'>
           <p className='text-md-medium md:text-lg-medium text-primary-200'>
             SERVICES
@@ -22,17 +32,25 @@ const Services = () => {
           Creating modern, intuitive, and visually consistent web experiences
           that align with industry trends and user expectations.
         </p>
-      </div>
+      </motion.div>
 
       <ServiceCards>
-        {serviceData.map((service) => (
-          <ServiceCard
+        {serviceData.map((service, index) => (
+          <motion.div
             key={service.title}
-            numbering={service.numbering}
-            icon={service.icon}
-            title={service.title}
-            description={service.description}
-          />
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.2 }}
+            className='flex-1 basis-80'
+          >
+            <ServiceCard
+              numbering={service.numbering}
+              icon={service.icon}
+              title={service.title}
+              description={service.description}
+            />
+          </motion.div>
         ))}
       </ServiceCards>
     </div>
@@ -67,7 +85,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
 }) => {
   return (
-    <div className='flex-1 basis-80 text-left'>
+    <div className='text-left'>
       <p className='text-md-semibold md:text-xl-semibold h-10.5 border-b border-neutral-800 align-text-top text-neutral-400 md:h-11.5'>
         {formatNumbering(numbering)}
       </p>

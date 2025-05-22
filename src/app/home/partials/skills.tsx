@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
@@ -16,7 +17,13 @@ const Skills = () => {
       id='skills'
     >
       {/*Skills*/}
-      <div className='mt-16.75 flex-[4.0] basis-90'>
+      <motion.div
+        className='mt-16.75 flex-[4.0] basis-90'
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className='flex flex-col gap-2'>
           <p className='text-md-medium md:text-lg-medium text-primary-200'>
             SKILLS
@@ -27,10 +34,17 @@ const Skills = () => {
 
           <SkillsMarquee />
         </div>
-      </div>
-      <div className='flex-[6.0] basis-90'>
+      </motion.div>
+
+      <motion.div
+        className='flex-[6.0] basis-90'
+        initial={{ opacity: 0, x: 100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.8 }}
+      >
         <SkillsBar />
-      </div>
+      </motion.div>
     </section>
   );
 };
@@ -38,12 +52,20 @@ const Skills = () => {
 const SkillsMarquee = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   return (
-    <div className='relative mt-6 flex w-80 flex-wrap md:mt-14.5 md:w-110'>
+    <motion.div
+      className='relative mt-6 flex w-80 flex-wrap md:mt-14.5 md:w-110'
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
       <Marquee>
         {skillsData.map((skill) => (
-          <div
+          <motion.div
             key={skill.alt}
             className='flex-center bg-base-black aspect-square h-12 rounded-full border border-neutral-800 duration-500 hover:scale-125 md:h-16'
+            whileHover={{ scale: 1.2 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 10 }}
             onMouseEnter={() => setHoveredSkill(skill.alt)}
             onMouseLeave={() => setHoveredSkill(null)}
           >
@@ -53,15 +75,17 @@ const SkillsMarquee = () => {
                 {skill.alt}
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </Marquee>
 
       <Marquee reverse>
         {skillsData1.map((skill) => (
-          <div
+          <motion.div
             key={skill.alt}
             className='flex-center bg-base-black aspect-square h-12 rounded-full border border-neutral-800 duration-500 hover:scale-125 md:h-16'
+            whileHover={{ scale: 1.2 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 10 }}
             onMouseEnter={() => setHoveredSkill(skill.alt)}
             onMouseLeave={() => setHoveredSkill(null)}
           >
@@ -71,13 +95,13 @@ const SkillsMarquee = () => {
                 {skill.alt}
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </Marquee>
 
       <div className='from-base-black absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r to-transparent' />
       <div className='from-base-black absolute inset-y-0 right-0 w-[15%] bg-gradient-to-l to-transparent' />
-    </div>
+    </motion.div>
   );
 };
 

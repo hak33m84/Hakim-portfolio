@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { StaticImageData } from 'next/image';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,6 +9,21 @@ import React from 'react';
 import { Section } from '@/components/layouts/section';
 
 import { projectsData } from '@/constants/project-data';
+
+const containerVariant = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const cardVariant = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 const Projects = () => {
   return (
@@ -32,7 +50,17 @@ type CardsProps = {
 };
 
 const Cards: React.FC<CardsProps> = ({ children }) => {
-  return <div className='flex flex-wrap gap-8 md:gap-5'>{children}</div>;
+  return (
+    <motion.div
+      className='flex flex-wrap gap-8 md:gap-5'
+      variants={containerVariant}
+      initial='hidden'
+      whileInView='show'
+      viewport={{ once: false, amount: 0.2 }}
+    >
+      {children}
+    </motion.div>
+  );
 };
 
 type CardProps = {
@@ -44,7 +72,10 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({ imageSrc, name, description, href }) => {
   return (
-    <div className='flex-1 basis-80 overflow-y-auto bg-scroll'>
+    <motion.div
+      variants={cardVariant}
+      className='flex-1 basis-80 overflow-y-auto bg-scroll'
+    >
       <Link href={href} target='_blank'>
         <Image
           src={imageSrc}
@@ -58,6 +89,6 @@ const Card: React.FC<CardProps> = ({ imageSrc, name, description, href }) => {
       <p className='text-sm-regular md:text-md-regular mt-3 line-clamp-5 text-neutral-400 md:mt-4'>
         {description}
       </p>
-    </div>
+    </motion.div>
   );
 };
